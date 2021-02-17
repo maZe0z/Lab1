@@ -1,2 +1,2 @@
-still need to work on bot logic and fix some bugs
-in progress
+Still need to work on bot logic and fix some bugs.
+In progress...
