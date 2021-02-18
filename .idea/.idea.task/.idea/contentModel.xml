@@ -9,6 +9,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="ComputerPlayer.cs" t="Include" />
         <e p="Deck.cs" t="Include" />
+        <e p="Game.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="net472" t="Include">

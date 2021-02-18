@@ -8,6 +8,8 @@ namespace task
         static void Main(string[] args)
         {
             
+            Game game = new Game();
+            
             Deck deck = new Deck();
             deck.Shuffle();
             
@@ -27,6 +29,11 @@ namespace task
             {
                 player.ShowHand();
                 Console.WriteLine("Your current score is: " + player.CountScore());
+                
+                if (player.CountScore() > 21)
+                {
+                    break;
+                }
                 
                 Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total");
 
@@ -49,6 +56,17 @@ namespace task
                 }
                 
             }
+
+            while (computerPlayer.CountScore() < 17)
+            {
+                computerPlayer.DrawCard(deck);
+            }
+            Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total");
+            
+            computerPlayer.ShowHand();
+            
+            game.CheckWinCondition(player,computerPlayer);
+            
         }
     }
 }

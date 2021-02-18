@@ -17,7 +17,7 @@ namespace task
             deck.Cards.RemoveAt(0);
             deck.Cards.RemoveAt(2);
             
-            Console.WriteLine("You have two cards in your hand.");
+            Console.WriteLine("\nYou have two cards in your hand.");
         }
 
         public void ShowHand()

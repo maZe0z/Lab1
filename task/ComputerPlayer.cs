@@ -25,6 +25,16 @@ namespace task
             deck.Cards.RemoveAt(3);
         }
         
+        public void ShowHand()
+        {
+            Console.WriteLine("Bob's hand:");
+            
+            for (int i = 0; i < botCards.Count; i++)
+            {
+                Console.WriteLine(botCards[i]);
+            }
+        }
+        
         public int CountScore()
         {
             Score = 0;
