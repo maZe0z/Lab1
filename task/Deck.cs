@@ -5,7 +5,7 @@ namespace task
 {
     public class Deck
     {
-        private List<int> cards = new List<int>()
+        private List<int> _cards = new List<int>()
         {
             2,2,2,2,
             3,3,3,3,
@@ -20,20 +20,20 @@ namespace task
 
         public List<int> Cards
         {
-            get => cards;
-            set => cards = value;
+            get => _cards;
+            set => _cards = value;
         }
 
         public void Shuffle(){  //function which shuffles the whole array 
             Random rand = new Random();
  
-            for (int i = cards.Count - 1; i >= 1; i--)
+            for (int i = _cards.Count - 1; i >= 1; i--)
             {
                 int j = rand.Next(i + 1);
                 
-                int tmp = cards[j];
-                cards[j] = cards[i];
-                cards[i] = tmp;
+                int tmp = _cards[j];
+                _cards[j] = _cards[i];
+                _cards[i] = tmp;
             }
         }
     }

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 
 namespace task
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            
             Game game = new Game();
             
             Deck deck = new Deck();
@@ -18,9 +16,8 @@ namespace task
             Console.Write("Enter a player's name:");
             player.Name = Console.ReadLine();
             player.SetFirsCards(deck);
-            
-            ComputerPlayer computerPlayer = new ComputerPlayer();
-            computerPlayer.BotName = "Bob";
+
+            ComputerPlayer computerPlayer = new ComputerPlayer {BotName = "Bob"};
             computerPlayer.SetFirsCards(deck);
             
             string keepPlaying = "Y";
@@ -28,22 +25,19 @@ namespace task
             while (keepPlaying == "Y")
             {
                 player.ShowHand();
-                Console.WriteLine("Your current score is: " + player.CountScore());
+                
+                Console.WriteLine("\n" + player.Name + " has scored " + player.CountScore() + " in total");
+                
+                Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total\n");
                 
                 if (player.CountScore() > 21)
                 {
                     break;
                 }
-                
-                Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total");
 
                 if (computerPlayer.CountScore() < 17)
                 {
                     computerPlayer.DrawCard(deck);
-                }
-                else
-                {
-                    Console.WriteLine(computerPlayer.BotName + " has stopped drawing cards");
                 }
 
                 Console.Write("Would you like to draw another card? ");
@@ -61,12 +55,16 @@ namespace task
             {
                 computerPlayer.DrawCard(deck);
             }
-            Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total");
             
+            game.ChangeElevens(player);
+            game.ChangeElevens(player, computerPlayer);
+
             computerPlayer.ShowHand();
             
-            game.CheckWinCondition(player,computerPlayer);
+            Console.WriteLine("\nYour final score is: " + player.CountScore());
+            Console.WriteLine(computerPlayer.BotName + "'s final score is: " + computerPlayer.CountScore());
             
+            game.CheckWinCondition(player,computerPlayer);
         }
     }
 }

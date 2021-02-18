@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]" date="1613651552520" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/.idea.task/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 18.02.2021 15:32 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="task/obj/Debug/net472/task.exe" />
+    <option name="AFTER_PATH" value="task/obj/Debug/net472/task.exe" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/.idea.task/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]/task.exe" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="task/bin/Debug/net472/task.pdb" />
+    <option name="AFTER_PATH" value="task/bin/Debug/net472/task.pdb" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/.idea.task/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]/task.pdb" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="task/bin/Debug/net472/task.exe" />
+    <option name="AFTER_PATH" value="task/bin/Debug/net472/task.exe" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/.idea.task/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]/task1.exe" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="task/obj/Debug/net472/task.pdb" />
+    <option name="AFTER_PATH" value="task/obj/Debug/net472/task.pdb" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/.idea.task/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]/task1.pdb" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="task/obj/Debug/net472/task.csproj.CoreCompileInputs.cache" />
+    <option name="AFTER_PATH" value="task/obj/Debug/net472/task.csproj.CoreCompileInputs.cache" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/.idea.task/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2021_15_32_[Default_Changelist]/task.csproj.CoreCompileInputs.cache" />
+  </binary>
+</changelist>

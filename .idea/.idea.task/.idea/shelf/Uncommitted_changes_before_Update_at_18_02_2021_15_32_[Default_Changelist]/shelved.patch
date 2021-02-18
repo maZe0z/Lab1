@@ -1,0 +1,306 @@
+Index: task/ComputerPlayer.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Collections.Generic;\r\n\r\nnamespace task\r\n{\r\n    public class ComputerPlayer\r\n    {\r\n        public int Score { get; set; }\r\n     \r\n        private List<int> botCards = new List<int>();\r\n\r\n        public string BotName { get; set; }\r\n        \r\n        public void DrawCard(Deck deck)\r\n        {\r\n            botCards.Add(deck.Cards[0]);\r\n            deck.Cards.RemoveAt(0);\r\n        }\r\n        \r\n        public void SetFirsCards(Deck deck)\r\n        {\r\n            botCards.Add(deck.Cards[1]);\r\n            botCards.Add(deck.Cards[3]);\r\n            deck.Cards.RemoveAt(1);\r\n            deck.Cards.RemoveAt(3);\r\n        }\r\n        \r\n        public int CountScore()\r\n        {\r\n            Score = 0;\r\n            \r\n            foreach (var t in botCards)\r\n            {\r\n                Score += t;\r\n            }\r\n\r\n            return Score;\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- task/ComputerPlayer.cs	(revision 90b78d615685ca2b4a107160d7913c8aca5b3d76)
++++ task/ComputerPlayer.cs	(date 1613649437246)
+@@ -25,6 +25,16 @@
+             deck.Cards.RemoveAt(3);
+         }
+         
++        public void ShowHand()
++        {
++            Console.WriteLine("Bob's hand:");
++            
++            for (int i = 0; i < botCards.Count; i++)
++            {
++                Console.WriteLine(botCards[i]);
++            }
++        }
++        
+         public int CountScore()
+         {
+             Score = 0;
+Index: task/Player.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Collections.Generic;\r\n\r\nnamespace task\r\n{\r\n    public class Player\r\n    {\r\n        public int Score { get; set; }\r\n        public string Name { get; set; }\r\n\r\n        private List<int> playerCards = new List<int>();\r\n\r\n        public void SetFirsCards(Deck deck)\r\n        {\r\n            playerCards.Add(deck.Cards[0]);\r\n            playerCards.Add(deck.Cards[2]);\r\n            deck.Cards.RemoveAt(0);\r\n            deck.Cards.RemoveAt(2);\r\n            \r\n            Console.WriteLine(\"You have two cards in your hand.\");\r\n        }\r\n\r\n        public void ShowHand()\r\n        {\r\n            Console.WriteLine(\"Your hand is:\");\r\n            \r\n            for (int i = 0; i < playerCards.Count; i++)\r\n            {\r\n                Console.WriteLine(playerCards[i]);\r\n            }\r\n        }\r\n        \r\n        public void DrawCard(Deck deck)\r\n        {\r\n            playerCards.Add(deck.Cards[0]);\r\n            deck.Cards.RemoveAt(0);\r\n        }\r\n\r\n        public int CountScore()\r\n        {\r\n            Score = 0;\r\n            \r\n            foreach (var t in playerCards)\r\n            {\r\n                Score += t;\r\n            }\r\n\r\n            return Score;\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- task/Player.cs	(revision 90b78d615685ca2b4a107160d7913c8aca5b3d76)
++++ task/Player.cs	(date 1613650814241)
+@@ -17,7 +17,7 @@
+             deck.Cards.RemoveAt(0);
+             deck.Cards.RemoveAt(2);
+             
+-            Console.WriteLine("You have two cards in your hand.");
++            Console.WriteLine("\nYou have two cards in your hand.");
+         }
+ 
+         public void ShowHand()
+Index: task/Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Net.NetworkInformation;\r\n\r\nnamespace task\r\n{\r\n    class Program\r\n    {\r\n        static void Main(string[] args)\r\n        {\r\n            \r\n            Deck deck = new Deck();\r\n            deck.Shuffle();\r\n            \r\n            Player player = new Player();\r\n            \r\n            Console.Write(\"Enter a player's name:\");\r\n            player.Name = Console.ReadLine();\r\n            player.SetFirsCards(deck);\r\n            \r\n            ComputerPlayer computerPlayer = new ComputerPlayer();\r\n            computerPlayer.BotName = \"Bob\";\r\n            computerPlayer.SetFirsCards(deck);\r\n            \r\n            string keepPlaying = \"Y\";\r\n\r\n            while (keepPlaying == \"Y\")\r\n            {\r\n                player.ShowHand();\r\n                Console.WriteLine(\"Your current score is: \" + player.CountScore());\r\n                \r\n                Console.WriteLine(computerPlayer.BotName + \" has scored \" + computerPlayer.CountScore() + \" in total\");\r\n\r\n                if (computerPlayer.CountScore() < 17)\r\n                {\r\n                    computerPlayer.DrawCard(deck);\r\n                }\r\n                else\r\n                {\r\n                    Console.WriteLine(computerPlayer.BotName + \" has stopped drawing cards\");\r\n                }\r\n\r\n                Console.Write(\"Would you like to draw another card? \");\r\n\r\n                keepPlaying = Console.ReadLine();\r\n\r\n                if (keepPlaying == \"Y\")\r\n                {\r\n                    player.DrawCard(deck);\r\n                }\r\n                \r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- task/Program.cs	(revision 90b78d615685ca2b4a107160d7913c8aca5b3d76)
++++ task/Program.cs	(date 1613650943108)
+@@ -8,6 +8,8 @@
+         static void Main(string[] args)
+         {
+             
++            Game game = new Game();
++            
+             Deck deck = new Deck();
+             deck.Shuffle();
+             
+@@ -28,6 +30,11 @@
+                 player.ShowHand();
+                 Console.WriteLine("Your current score is: " + player.CountScore());
+                 
++                if (player.CountScore() > 21)
++                {
++                    break;
++                }
++                
+                 Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total");
+ 
+                 if (computerPlayer.CountScore() < 17)
+@@ -49,6 +56,17 @@
+                 }
+                 
+             }
++
++            while (computerPlayer.CountScore() < 17)
++            {
++                computerPlayer.DrawCard(deck);
++            }
++            Console.WriteLine(computerPlayer.BotName + " has scored " + computerPlayer.CountScore() + " in total");
++            
++            computerPlayer.ShowHand();
++            
++            game.CheckWinCondition(player,computerPlayer);
++            
+         }
+     }
+ }
+\ No newline at end of file
+Index: .idea/.idea.task/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoGeneratedRunConfigurationManager\">\r\n    <projectFile>task/task.csproj</projectFile>\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"edc712fc-b044-4104-b2e3-647ab3f5c815\" name=\"Default Changelist\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/metadata/3C9E850C-90C5-48A0-AF7E-388089BBDAE9/1d/63254a7f/System.Core.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/95B4B630-A4AF-4E9A-8336-D9E36310DACA/80/d59787fa/CounterData.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"IdeDocumentHistory\">\r\n    <option name=\"CHANGED_PATHS\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/task/Deck.cs\" />\r\n        <option value=\"$PROJECT_DIR$/task/ComputerPlayer.cs\" />\r\n        <option value=\"$PROJECT_DIR$/task/Player.cs\" />\r\n        <option value=\"$PROJECT_DIR$/task/Program.cs\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1oZRVMFXvBraCvKGqUmz7njAdEz\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"org.jetbrains.plugins.github.ui.GithubSettingsConfigurable\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"task\" type=\"DotNetProject\" factoryName=\".NET Project\">\r\n      <option name=\"EXE_PATH\" value=\"\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\r\n      <option name=\"USE_EXTERNAL_CONSOLE\" value=\"0\" />\r\n      <option name=\"USE_MONO\" value=\"0\" />\r\n      <option name=\"RUNTIME_ARGUMENTS\" value=\"\" />\r\n      <option name=\"PROJECT_PATH\" value=\"$PROJECT_DIR$/task/task.csproj\" />\r\n      <option name=\"PROJECT_EXE_PATH_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_ARGUMENTS_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_WORKING_DIRECTORY_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_KIND\" value=\"DotNetCore\" />\r\n      <option name=\"PROJECT_TFM\" value=\"\" />\r\n      <method v=\"2\">\r\n        <option name=\"Build\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"edc712fc-b044-4104-b2e3-647ab3f5c815\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1613492150664</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1613492150664</updated>\r\n      <workItem from=\"1613492157292\" duration=\"2447000\" />\r\n      <workItem from=\"1613502147130\" duration=\"1942000\" />\r\n      <workItem from=\"1613581255703\" duration=\"11062000\" />\r\n      <workItem from=\"1613593551882\" duration=\"227000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"false\" />\r\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"NUnit\" />\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"708\" y=\"350\" key=\"#Notifications\" timestamp=\"1613593462479\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state x=\"708\" y=\"350\" key=\"#Notifications/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593462479\" />\r\n    <state x=\"838\" y=\"423\" key=\"Github.ShareDialog\" timestamp=\"1613593769494\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state x=\"838\" y=\"423\" key=\"Github.ShareDialog/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593769494\" />\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1613593520610\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593520610\" />\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.center\" timestamp=\"1613593520610\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593520610\" />\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.left\" timestamp=\"1613593520610\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593520610\" />\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.right\" timestamp=\"1613593520610\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state width=\"882\" height=\"524\" key=\"GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593520610\" />\r\n    <state x=\"461\" y=\"170\" key=\"SettingsEditor\" timestamp=\"1613593456176\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state x=\"461\" y=\"170\" key=\"SettingsEditor/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593456176\" />\r\n    <state x=\"623\" y=\"227\" width=\"672\" height=\"678\" key=\"search.everywhere.popup\" timestamp=\"1613593563193\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1050\" />\r\n    </state>\r\n    <state x=\"623\" y=\"227\" width=\"672\" height=\"678\" key=\"search.everywhere.popup/0.0.1920.1050@0.0.1920.1050\" timestamp=\"1613593563193\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.task/.idea/workspace.xml	(revision 90b78d615685ca2b4a107160d7913c8aca5b3d76)
++++ .idea/.idea.task/.idea/workspace.xml	(date 1613651538307)
+@@ -3,13 +3,46 @@
+   <component name="AutoGeneratedRunConfigurationManager">
+     <projectFile>task/task.csproj</projectFile>
+   </component>
++  <component name="BranchesTreeState">
++    <expand>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++    </expand>
++    <select />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="edc712fc-b044-4104-b2e3-647ab3f5c815" name="Default Changelist" comment="" />
++    <list default="true" id="edc712fc-b044-4104-b2e3-647ab3f5c815" name="Default Changelist" comment="">
++      <change afterPath="$PROJECT_DIR$/task/Game.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.task/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.task/.idea/contentModel.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.task/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.task/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/ComputerPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/task/ComputerPlayer.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/task/Player.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/task/Program.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/bin/Debug/net472/task.exe" beforeDir="false" afterPath="$PROJECT_DIR$/task/bin/Debug/net472/task.exe" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/bin/Debug/net472/task.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/task/bin/Debug/net472/task.pdb" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/obj/Debug/net472/task.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/task/obj/Debug/net472/task.csproj.CoreCompileInputs.cache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/obj/Debug/net472/task.exe" beforeDir="false" afterPath="$PROJECT_DIR$/task/obj/Debug/net472/task.exe" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/task/obj/Debug/net472/task.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/task/obj/Debug/net472/task.pdb" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/metadata/3C9E850C-90C5-48A0-AF7E-388089BBDAE9/1d/63254a7f/System.Core.cs" root0="SKIP_HIGHLIGHTING" />
+     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/95B4B630-A4AF-4E9A-8336-D9E36310DACA/80/d59787fa/CounterData.cs" root0="SKIP_HIGHLIGHTING" />
+@@ -17,14 +50,16 @@
+   <component name="IdeDocumentHistory">
+     <option name="CHANGED_PATHS">
+       <list>
+-        <option value="$PROJECT_DIR$/task/Deck.cs" />
+         <option value="$PROJECT_DIR$/task/ComputerPlayer.cs" />
+         <option value="$PROJECT_DIR$/task/Player.cs" />
+         <option value="$PROJECT_DIR$/task/Program.cs" />
++        <option value="$PROJECT_DIR$/task/Deck.cs" />
++        <option value="$PROJECT_DIR$/task/Game.cs" />
+       </list>
+     </option>
+   </component>
+   <component name="ProjectId" id="1oZRVMFXvBraCvKGqUmz7njAdEz" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -67,6 +102,10 @@
+       <workItem from="1613502147130" duration="1942000" />
+       <workItem from="1613581255703" duration="11062000" />
+       <workItem from="1613593551882" duration="227000" />
++      <workItem from="1613593883280" duration="378000" />
++      <workItem from="1613594585981" duration="154000" />
++      <workItem from="1613594906664" duration="484000" />
++      <workItem from="1613648359523" duration="3177000" />
+     </task>
+     <servers />
+   </component>
+@@ -75,6 +114,18 @@
+   </component>
+   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++    <option name="oldMeFiltersMigrated" value="true" />
++  </component>
+   <component name="VcsManagerConfiguration">
+     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+   </component>
+@@ -83,26 +134,30 @@
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+     <state x="708" y="350" key="#Notifications/0.0.1920.1050@0.0.1920.1050" timestamp="1613593462479" />
+-    <state x="838" y="423" key="Github.ShareDialog" timestamp="1613593769494">
++    <state x="838" y="423" key="Github.ShareDialog" timestamp="1613593951916">
++      <screen x="0" y="0" width="1920" height="1050" />
++    </state>
++    <state x="838" y="423" key="Github.ShareDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1613593951916" />
++    <state x="724" y="231" key="Github.UntrackedFilesDialog" timestamp="1613593960757">
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+-    <state x="838" y="423" key="Github.ShareDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1613593769494" />
+-    <state width="882" height="524" key="GridCell.Tab.0.bottom" timestamp="1613593520610">
++    <state x="724" y="231" key="Github.UntrackedFilesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1613593960757" />
++    <state width="882" height="524" key="GridCell.Tab.0.bottom" timestamp="1613651238083">
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+-    <state width="882" height="524" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1613593520610" />
+-    <state width="882" height="524" key="GridCell.Tab.0.center" timestamp="1613593520610">
++    <state width="882" height="524" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1613651238083" />
++    <state width="882" height="524" key="GridCell.Tab.0.center" timestamp="1613651238083">
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+-    <state width="882" height="524" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1613593520610" />
+-    <state width="882" height="524" key="GridCell.Tab.0.left" timestamp="1613593520610">
++    <state width="882" height="524" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1613651238083" />
++    <state width="882" height="524" key="GridCell.Tab.0.left" timestamp="1613651238083">
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+-    <state width="882" height="524" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1613593520610" />
+-    <state width="882" height="524" key="GridCell.Tab.0.right" timestamp="1613593520610">
++    <state width="882" height="524" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1613651238083" />
++    <state width="882" height="524" key="GridCell.Tab.0.right" timestamp="1613651238083">
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+-    <state width="882" height="524" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1613593520610" />
++    <state width="882" height="524" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1613651238083" />
+     <state x="461" y="170" key="SettingsEditor" timestamp="1613593456176">
+       <screen x="0" y="0" width="1920" height="1050" />
+     </state>
+Index: task/Game.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- task/Game.cs	(date 1613651478419)
++++ task/Game.cs	(date 1613651478419)
+@@ -0,0 +1,41 @@
++using System;
++
++namespace task
++{
++    public class Game
++    {
++        public void CheckWinCondition (Player player, ComputerPlayer bot)
++        {
++
++            int playerFinalScore = player.CountScore();
++            int botFinalScore = bot.CountScore();
++
++            if (playerFinalScore > 21 && botFinalScore <= 21)
++            {
++                Console.WriteLine(bot.BotName + " wins!");
++            }
++
++            else if (playerFinalScore == botFinalScore && playerFinalScore <= 21 && botFinalScore <= 21)
++            {
++                Console.WriteLine("That's a tie");
++            }
++            
++            else if (botFinalScore > 21 &&  playerFinalScore <= 21)
++            {
++                Console.WriteLine(player.Name + " wins!");
++            }
++            else if (botFinalScore>playerFinalScore && botFinalScore <=21)
++            {
++                Console.WriteLine(bot.BotName + " wins!");
++            }
++            else if(playerFinalScore>botFinalScore && playerFinalScore <=21)
++            {
++                Console.WriteLine(player.Name + " wins!");
++            }
++            else
++            {
++                Console.WriteLine("Both players lost!");
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: .idea/.idea.task/.idea/contentModel.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ContentModelStore\">\r\n    <e p=\"C:\\Users\\user\\AppData\\Local\\JetBrains\\Rider2020.2\\extResources\" t=\"IncludeRecursive\" />\r\n    <e p=\"C:\\Users\\user\\AppData\\Local\\JetBrains\\Rider2020.2\\resharper-host\\Local\\Transient\\Rider\\v202\\SolutionCaches\\_task.-968151912.00\" t=\"ExcludeRecursive\" />\r\n    <e p=\"D:\\proga\\2sem\\task\" t=\"IncludeFlat\">\r\n      <e p=\"packages\" t=\"ExcludeRecursive\" />\r\n      <e p=\"task\" t=\"IncludeRecursive\">\r\n        <e p=\"bin\" t=\"ExcludeRecursive\" />\r\n        <e p=\"ComputerPlayer.cs\" t=\"Include\" />\r\n        <e p=\"Deck.cs\" t=\"Include\" />\r\n        <e p=\"obj\" t=\"ExcludeRecursive\">\r\n          <e p=\"Debug\" t=\"Include\">\r\n            <e p=\"net472\" t=\"Include\">\r\n              <e p=\"task.AssemblyInfo.cs\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n        </e>\r\n        <e p=\"Player.cs\" t=\"Include\" />\r\n        <e p=\"Program.cs\" t=\"Include\" />\r\n        <e p=\"task.csproj\" t=\"IncludeRecursive\" />\r\n      </e>\r\n      <e p=\"task.sln\" t=\"IncludeFlat\" />\r\n    </e>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.task/.idea/contentModel.xml	(revision 90b78d615685ca2b4a107160d7913c8aca5b3d76)
++++ .idea/.idea.task/.idea/contentModel.xml	(date 1613649930941)
+@@ -9,6 +9,7 @@
+         <e p="bin" t="ExcludeRecursive" />
+         <e p="ComputerPlayer.cs" t="Include" />
+         <e p="Deck.cs" t="Include" />
++        <e p="Game.cs" t="Include" />
+         <e p="obj" t="ExcludeRecursive">
+           <e p="Debug" t="Include">
+             <e p="net472" t="Include">
