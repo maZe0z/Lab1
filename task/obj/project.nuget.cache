@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vfAqpQxUC3oZvxr7t8Ghrc0Rv9vQ60eh5+oJJ9UtM0QgetMRGmpDasGXtIlrfvrs8yWqDGsxuFCHqtpY3hz6oQ==",
+  "dgSpecHash": "m3+NypWoAAFSwMbZ5nK7YQa5/c1KSo87i0XeJ1lMduODsM9ICc3rZcksaxfMNsx34LOl2Q4CxClc+M2hZlxT5A==",
   "success": true,
-  "projectFilePath": "D:\\proga\\2sem\\task\\task\\task.csproj",
+  "projectFilePath": "D:\\proga\\2sem\\cSharpLab1\\task\\task\\task.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

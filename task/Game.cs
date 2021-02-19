@@ -67,7 +67,7 @@ namespace task
                 return;
             }
             
-            else if (computerPlayer.BotCards.Contains(11))
+            if (computerPlayer.BotCards.Contains(11))
             {
                 foreach (var t in computerPlayer.BotCards)
                 {
@@ -77,7 +77,22 @@ namespace task
                     }
                 }
 
-                if (computerPlayer.CountScore() - 11 * counter + 1 * counter > player.CountScore() && computerPlayer.CountScore() - 11 * counter + 1 * counter <= 21)
+                if (computerPlayer.CountScore() - 11 * counter + 1 * counter > player.CountScore() && 
+                    computerPlayer.CountScore() - 11 * counter + 1 * counter <= 21)
+                {
+                    Console.WriteLine("\n" + computerPlayer.BotName + " has decided to change his aces' value\n");
+                    
+                    for (int i = 0; i < computerPlayer.BotCards.Count; i++)
+                    {
+                        if (computerPlayer.BotCards[i] == 11)
+                        {
+                            computerPlayer.BotCards[i] = 1;
+                        }
+                    }
+                }
+                
+                else if (computerPlayer.CountScore() - 11 * counter + 1 * counter == player.CountScore() &&
+                         computerPlayer.CountScore() - 11 * counter + 1 * counter <= 21)
                 {
                     Console.WriteLine("\n" + computerPlayer.BotName + " has decided to change his aces' value\n");
                     

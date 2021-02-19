@@ -7,3 +7,12 @@ D:\proga\2sem\task\task\obj\Debug\net472\task.AssemblyInfo.cs
 D:\proga\2sem\task\task\obj\Debug\net472\task.csproj.CoreCompileInputs.cache
 D:\proga\2sem\task\task\obj\Debug\net472\task.exe
 D:\proga\2sem\task\task\obj\Debug\net472\task.pdb
+D:\proga\2sem\cSharpLab1\task\task\bin\Debug\net472\task.exe.config
+D:\proga\2sem\cSharpLab1\task\task\bin\Debug\net472\task.exe
+D:\proga\2sem\cSharpLab1\task\task\bin\Debug\net472\task.pdb
+D:\proga\2sem\cSharpLab1\task\task\obj\Debug\net472\task.csprojAssemblyReference.cache
+D:\proga\2sem\cSharpLab1\task\task\obj\Debug\net472\task.AssemblyInfoInputs.cache
+D:\proga\2sem\cSharpLab1\task\task\obj\Debug\net472\task.AssemblyInfo.cs
+D:\proga\2sem\cSharpLab1\task\task\obj\Debug\net472\task.csproj.CoreCompileInputs.cache
+D:\proga\2sem\cSharpLab1\task\task\obj\Debug\net472\task.exe
+D:\proga\2sem\cSharpLab1\task\task\obj\Debug\net472\task.pdb
