@@ -1,2 +1,1 @@
-Still need to work on bot logic and fix some bugs and add the win condition to the game.
-In progress...
+all done
